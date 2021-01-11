@@ -9,9 +9,7 @@ namespace WeatherService.Infrastructure.Extensions
         public static IServiceCollection ConfigureInfrastructureServiceCollection(this IServiceCollection services)
         {
             services.AddSingleton<ITelegramClientService, TelegramClientService>();
-            
             services.AddTransient<IBotParameterService, BotParameterService>();
-            
             return services;
         }
     }

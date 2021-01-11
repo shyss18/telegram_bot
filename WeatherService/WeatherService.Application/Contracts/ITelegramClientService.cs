@@ -8,8 +8,8 @@ namespace WeatherService.Application.Contracts
     public interface ITelegramClientService
     {
         EventHandler<MessageEventArgs> OnMessageReceived { get; set; }
-        
-        Task SendMessageAsync(string message, CancellationToken cancellationToken);
+
+        Task SendMessageAsync(string chatId, string message, CancellationToken cancellationToken);
 
         Task StartReceivingAsync(CancellationToken cancellationToken);
 

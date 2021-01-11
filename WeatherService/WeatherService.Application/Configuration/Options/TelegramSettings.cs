@@ -1,4 +1,4 @@
-namespace WeatherService.Domain.Configuration
+namespace WeatherService.Application.Configuration.Options
 {
     public class TelegramSettings
     {

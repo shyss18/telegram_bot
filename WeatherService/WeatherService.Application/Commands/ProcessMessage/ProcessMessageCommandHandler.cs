@@ -5,9 +5,9 @@ using MediatR;
 
 namespace WeatherService.Application.Commands.ProcessMessage
 {
-    public class ProcessMessageCommandHandler : IRequestHandler<ProcessMessageCommand>
+    public class ProcessMessageCommandHandler : AsyncRequestHandler<ProcessMessageCommand>
     {
-        public Task<Unit> Handle(ProcessMessageCommand request, CancellationToken cancellationToken)
+        protected override Task Handle(ProcessMessageCommand request, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }

@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using WeatherService.Application.Contracts;
-using WeatherService.Infrastructure.ClientStorage;
+using WeatherService.Infrastructure.Services;
 
 namespace WeatherService.Infrastructure.Extensions
 {
@@ -8,8 +8,10 @@ namespace WeatherService.Infrastructure.Extensions
     {
         public static IServiceCollection ConfigureInfrastructureServiceCollection(this IServiceCollection services)
         {
-            services.AddSingleton<ITelegramClientWrapper, TelegramClientWrapper>();
-
+            services.AddSingleton<ITelegramClientService, TelegramClientService>();
+            
+            services.AddTransient<IBotParameterService, BotParameterService>();
+            
             return services;
         }
     }

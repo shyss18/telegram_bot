@@ -5,20 +5,18 @@ using WeatherService.Application.Contracts;
 
 namespace WeatherService.Application.Commands.UnsubscribeFromBot
 {
-    public class UnsubscribeFromBotCommandHandler : IRequestHandler<UnsubscribeFromBotCommand>
+    public class UnsubscribeFromBotCommandHandler : AsyncRequestHandler<UnsubscribeFromBotCommand>
     {
-        private readonly ITelegramClientWrapper _wrapper;
+        private readonly ITelegramClientService _service;
 
-        public UnsubscribeFromBotCommandHandler(ITelegramClientWrapper wrapper)
+        public UnsubscribeFromBotCommandHandler(ITelegramClientService service)
         {
-            _wrapper = wrapper;
+            _service = service;
         }
 
-        public Task<Unit> Handle(UnsubscribeFromBotCommand request, CancellationToken cancellationToken)
+        protected override async Task Handle(UnsubscribeFromBotCommand request, CancellationToken cancellationToken)
         {
-            _wrapper.TelegramBotClient.StopReceiving();
-            _wrapper.TelegramBotClient = null;
-            return Task.FromResult(Unit.Value);
+            await _service.StopReceivingAsync(cancellationToken);
         }
     }
 }

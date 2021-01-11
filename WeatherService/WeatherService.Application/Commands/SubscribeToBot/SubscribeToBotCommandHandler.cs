@@ -1,46 +1,37 @@
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using Microsoft.Extensions.Options;
-using Telegram.Bot;
 using Telegram.Bot.Args;
+using WeatherService.Application.Commands.ProcessMessage;
 using WeatherService.Application.Contracts;
-using WeatherService.Domain.Configuration;
 
 namespace WeatherService.Application.Commands.SubscribeToBot
 {
-    public class SubscribeToBotCommandHandler : IRequestHandler<SubscribeToBotCommand>
+    public class SubscribeToBotCommandHandler : AsyncRequestHandler<SubscribeToBotCommand>
     {
-        private readonly ITelegramClientWrapper _wrapper;
-        private readonly IOptions<TelegramSettings> _telegramSettings;
+        private readonly IMediator _mediator;
+        private readonly ITelegramClientService _service;
 
         public SubscribeToBotCommandHandler(
-            ITelegramClientWrapper wrapper,
-            IOptions<TelegramSettings> telegramSettings)
+            IMediator mediator,
+            ITelegramClientService service)
         {
-            _wrapper = wrapper;
-            _telegramSettings = telegramSettings;
+            _mediator = mediator;
+            _service = service;
         }
 
-        public Task<Unit> Handle(SubscribeToBotCommand request, CancellationToken cancellationToken)
+        protected override async Task Handle(SubscribeToBotCommand request, CancellationToken cancellationToken)
         {
-            _wrapper.TelegramBotClient = new TelegramBotClient(_telegramSettings.Value.BotToken);
-            _wrapper.TelegramBotClient.OnMessage += OnGetMessage;
-            _wrapper.TelegramBotClient.OnMessageEdited += OnMessageEdited;
-            _wrapper.TelegramBotClient.StartReceiving(cancellationToken: cancellationToken);
-
-            
-            
-            return Task.FromResult(Unit.Value);
-        }
-
-        private void OnMessageEdited(object sender, MessageEventArgs e)
-        {
+            _service.OnMessageReceived += OnGetMessage;
+            await _service.StartReceivingAsync(cancellationToken: cancellationToken);
         }
 
         private void OnGetMessage(object sender, MessageEventArgs e)
         {
-            
+            Task.Run(() => _mediator.Send(new ProcessMessageCommand
+            {
+                Message = e.Message
+            }));
         }
     }
 }

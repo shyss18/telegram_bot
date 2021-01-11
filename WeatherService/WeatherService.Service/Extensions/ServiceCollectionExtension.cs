@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using WeatherService.Application.Extension;
-using WeatherService.Domain.Configuration;
+using WeatherService.Application.Configuration.Options;
+using WeatherService.Application.Extensions;
 using WeatherService.Infrastructure.Extensions;
 using WeatherService.Service.Service;
 

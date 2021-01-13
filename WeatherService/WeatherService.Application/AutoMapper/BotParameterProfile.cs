@@ -1,6 +1,6 @@
 using System;
 using AutoMapper;
-using WeatherService.Domain.BotParameters;
+using WeatherService.Domain.BotCommands;
 
 namespace WeatherService.Application.AutoMapper
 {
@@ -8,8 +8,8 @@ namespace WeatherService.Application.AutoMapper
     {
         public BotParameterProfile()
         {
-            CreateMap<BotParameter, string>()
-                .ConvertUsing(src => Enum.GetName(typeof(BotParameter), src));
+            CreateMap<BotCommand, string>()
+                .ConvertUsing(src => Enum.GetName(typeof(BotCommand), src));
         }
     }
 }

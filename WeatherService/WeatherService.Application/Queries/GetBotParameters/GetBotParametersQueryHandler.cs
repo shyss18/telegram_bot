@@ -10,23 +10,23 @@ namespace WeatherService.Application.Queries.GetBotParameters
     public class GetBotParametersQueryHandler : IRequestHandler<GetBotParametersQuery, IEnumerable<string>>
     {
         private readonly IMapper _mapper;
-        private readonly IBotParameterService _botParameterService;
+        private readonly IBotCommandsService _botCommandsService;
 
         public GetBotParametersQueryHandler(
             IMapper mapper,
-            IBotParameterService botParameterService)
+            IBotCommandsService botCommandsService)
         {
             _mapper = mapper;
-            _botParameterService = botParameterService;
+            _botCommandsService = botCommandsService;
         }
 
         public Task<IEnumerable<string>> Handle(
             GetBotParametersQuery request,
             CancellationToken cancellationToken)
         {
-            var botParameters = _botParameterService.GetBotParameters();
+            var botParameters = _botCommandsService.GetBotCommands();
             var mappedParameters = _mapper.Map<IEnumerable<string>>(botParameters);
-            return Task.FromResult(_botParameterService.ConvertParametersToTelegramCommands(mappedParameters));
+            return Task.FromResult(_botCommandsService.ConvertBotCommandsToTelegramCommands(mappedParameters));
         }
     }
 }

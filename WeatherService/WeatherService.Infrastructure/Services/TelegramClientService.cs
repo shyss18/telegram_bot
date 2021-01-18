@@ -21,7 +21,7 @@ namespace WeatherService.Infrastructure.Services
             Subscribe();
         }
 
-        public async Task SendMessageAsync(string chatId, string message, CancellationToken cancellationToken)
+        public async Task SendMessageAsync(long chatId, string message, CancellationToken cancellationToken)
         {
             await _telegramBotClient.SendTextMessageAsync(chatId, message, cancellationToken: cancellationToken);
         }

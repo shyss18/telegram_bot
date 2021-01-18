@@ -12,7 +12,7 @@ namespace WeatherService.Service.Extensions
         public static IServiceCollection ConfigureServiceCollection(this IServiceCollection services)
         {
             services.AddHostedService<WeatherWorker>();
-            
+
             services.ConfigureApplicationServiceCollection();
             services.ConfigureInfrastructureServiceCollection();
 

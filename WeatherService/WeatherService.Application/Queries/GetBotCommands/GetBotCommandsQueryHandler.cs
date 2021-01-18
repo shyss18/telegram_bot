@@ -5,14 +5,14 @@ using AutoMapper;
 using MediatR;
 using WeatherService.Application.Contracts;
 
-namespace WeatherService.Application.Queries.GetBotParameters
+namespace WeatherService.Application.Queries.GetBotCommands
 {
-    public class GetBotParametersQueryHandler : IRequestHandler<GetBotParametersQuery, IEnumerable<string>>
+    public class GetBotCommandsQueryHandler : IRequestHandler<GetBotCommandsQuery, IEnumerable<string>>
     {
         private readonly IMapper _mapper;
         private readonly IBotCommandsService _botCommandsService;
 
-        public GetBotParametersQueryHandler(
+        public GetBotCommandsQueryHandler(
             IMapper mapper,
             IBotCommandsService botCommandsService)
         {
@@ -21,7 +21,7 @@ namespace WeatherService.Application.Queries.GetBotParameters
         }
 
         public Task<IEnumerable<string>> Handle(
-            GetBotParametersQuery request,
+            GetBotCommandsQuery request,
             CancellationToken cancellationToken)
         {
             var botParameters = _botCommandsService.GetBotCommands();

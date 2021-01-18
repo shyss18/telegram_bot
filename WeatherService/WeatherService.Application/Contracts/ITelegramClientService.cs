@@ -9,7 +9,7 @@ namespace WeatherService.Application.Contracts
     {
         EventHandler<MessageEventArgs> OnMessageReceived { get; set; }
 
-        Task SendMessageAsync(string chatId, string message, CancellationToken cancellationToken);
+        Task SendMessageAsync(long chatId, string message, CancellationToken cancellationToken);
 
         Task StartReceivingAsync(CancellationToken cancellationToken);
 

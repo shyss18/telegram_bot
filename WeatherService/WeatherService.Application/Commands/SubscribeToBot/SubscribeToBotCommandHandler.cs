@@ -28,10 +28,10 @@ namespace WeatherService.Application.Commands.SubscribeToBot
 
         private void OnGetMessage(object sender, MessageEventArgs e)
         {
-            Task.Run(() => _mediator.Send(new ProcessMessageCommand
+            _mediator.Send(new ProcessMessageCommand
             {
                 Message = e.Message
-            }));
+            });
         }
     }
 }
